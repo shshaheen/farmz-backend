@@ -16,7 +16,7 @@ try {
         const hashedPassword = await bcrypt.hash(password, 8);
         const newUser = new User({username, email,village, password: hashedPassword});
         await newUser.save();
-        res.status(201).json({message:"User registered successfully"});
+        res.status(201).json(newUser);
     }
 } catch (error) {
     res.status(500).json({error: error.message});
