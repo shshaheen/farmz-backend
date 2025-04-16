@@ -5,8 +5,8 @@ const productRouter = express.Router();
 
 productRouter.post('/api/add-product', async (req, res) => {
     try {
-        const {productName, productPrice,location, speciality, farmerId,image} = req.body;
-        const product = new Product({productName, productPrice,location, speciality, farmerId,image});
+        const {productName, productPrice,location,description, speciality, farmerId,image} = req.body;
+        const product = new Product({productName, productPrice,location,description, speciality, farmerId,image});
         await product.save();
         return res.status(201).send(product);
     } catch (e) {
