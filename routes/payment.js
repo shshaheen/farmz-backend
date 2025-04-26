@@ -10,22 +10,30 @@ const razorpay = new Razorpay({
 });
 
 // POST /create-order
-router.post("/api/payments/create-order", async (req, res) => {
-  const { amount } = req.body;
-
+router.post("/create-order", async (req, res) => {
   try {
-    const order = await razorpay.orders.create({
+    console.log("Request body:", req.body);
+
+    const { amount } = req.body;
+
+    const options = {
       amount: amount * 100, // in paise
       currency: "INR",
-      receipt: `receipt_${Math.floor(Math.random() * 10000)}`,
-      payment_capture: 1
-    });
+    };
 
-    res.status(200).json({ success: true, order });
-  } catch (err) {
-    console.error("Order creation error:", err.stack);
-    res.status(500).json({ success: false, message: err.message });
+    const order = await instance.orders.create(options);
+
+    console.log("Order created:", order);
+
+    res.status(200).json({
+      success: true,
+      order,
+    });
+  } catch (error) {
+    console.error("Error while creating order:", error); // 👈 important
+    res.status(500).json({ success: false });
   }
 });
+
 
 module.exports = router;
