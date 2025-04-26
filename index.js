@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(farmerAuthRouter);
 app.use(consumerAuthRouter);
 app.use(productRouter);
-app.use("/api/payments", paymentRouter); // 👈 now your /create-order endpoint is /api/payments/create-order
+app.use(paymentRouter); // 👈 now your /create-order endpoint is /api/payments/create-order
 
 // DB Connection
 const DB = process.env.MONGO_URI;
@@ -29,5 +29,5 @@ mongoose.connect(DB)
 
 // Start Server
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
