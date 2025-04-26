@@ -17,12 +17,13 @@ router.post("/api/payments/create-order", async (req, res) => {
     const order = await razorpay.orders.create({
       amount: amount * 100, // in paise
       currency: "INR",
-      receipt: `receipt_${Math.floor(Math.random() * 10000)}`
+      receipt: `receipt_${Math.floor(Math.random() * 10000)}`,
+      payment_capture: 1
     });
 
     res.status(200).json({ success: true, order });
   } catch (err) {
-    console.error("Order creation error:", err);
+    console.error("Order creation error:", err.stack);
     res.status(500).json({ success: false, message: err.message });
   }
 });
