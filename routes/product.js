@@ -4,6 +4,7 @@ const Product = require('../models/product');
 const productRouter = express.Router();
 
 productRouter.post('/api/add-product', async (req, res) => {
+    // console.log("Farmer");
     try {
         const {productName, productPrice,location,description, speciality, farmerId,image} = req.body;
         const product = new Product({productName, productPrice,location,description, speciality, farmerId,image});
